@@ -1,7 +1,7 @@
 package lk.ijse.gdse.bean;
 
-public class A {
-    public A() {
-        System.out.println("A instance created");
+public class C {
+    public C() {
+        System.out.println("C instance created");
     }
 }

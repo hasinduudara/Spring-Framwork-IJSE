@@ -4,10 +4,10 @@
     <facet type="web" name="Web">
       <configuration>
         <descriptors>
-          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/08_Spring_WebMVC/web/WEB-INF/web.xml" />
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/08_Spring_WebMVC/web2/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/08_Spring_WebMVC/web" relative="/" />
+          <root url="file://$MODULE_DIR$/08_Spring_WebMVC/web2" relative="/" />
         </webroots>
         <sourceRoots>
           <root url="file://$MODULE_DIR$/08_Spring_WebMVC/src/main/java" />

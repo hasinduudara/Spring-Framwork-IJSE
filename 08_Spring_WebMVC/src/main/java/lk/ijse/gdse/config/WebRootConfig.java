@@ -1,4 +1,7 @@
 package lk.ijse.gdse.config;
 
-public class WebRoot {
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class WebRootConfig {
 }

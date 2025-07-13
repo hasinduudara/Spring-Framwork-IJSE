@@ -1,4 +1,6 @@
 package lk.ijse.gdse.bean;
 
-public interface Agriment {
+public interface Agreement {
+
+    public void chat();
 }

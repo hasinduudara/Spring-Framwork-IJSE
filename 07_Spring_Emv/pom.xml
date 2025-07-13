@@ -8,5 +8,13 @@
     <artifactId>07_Spring_Emv</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>7.0.0-M4</version>
+        </dependency>
+    </dependencies>
+
 </project>

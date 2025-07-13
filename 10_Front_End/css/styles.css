@@ -1,0 +1,16 @@
+body {
+    background-color: #f8f9fa;
+}
+.container {
+    max-width: 900px;
+}
+.card {
+    border: none;
+}
+.card-header,
+.card-body {
+    padding: 1.5rem;
+}
+.badge-status {
+    min-width: 80px;
+}

@@ -1,4 +1,4 @@
-package lk.ijse.gdse.test;
+package lk.ijse.gdse.bean;
 
 import org.springframework.stereotype.Component;
 

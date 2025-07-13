@@ -5,8 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>lk.ijse.gdse</groupId>
-    <artifactId>06._Runtime_Value_Injection</artifactId>
+    <artifactId>06_Runtime_Value_Injection</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>7.0.0-M4</version>
+        </dependency>
+    </dependencies>
+
+
 </project>
