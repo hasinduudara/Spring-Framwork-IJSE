@@ -5,6 +5,9 @@ import lk.ijse.jse.back_end.dto.JobDTO;
 import lk.ijse.jse.back_end.service.JobService;
 import lk.ijse.jse.back_end.util.APIResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,16 +17,27 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("api/v1/job")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class JobController {
 
     private final JobService jobService;
+    private static final Logger logger = LoggerFactory.getLogger(JobController.class);
 
     @PostMapping("create")
     public ResponseEntity<APIResponse<List<JobDTO>>> createJob(@RequestBody @Valid JobDTO jobDTO) {
+
+        log.info("Job creation successful");
+        log.debug("Job creation request received with details: {}", jobDTO);
+        log.error("Job creation fail");
+        log.trace("Job creation trace");
+        log.warn("Job creation warning");
+
+
         jobService.saveJob(jobDTO);
         return new ResponseEntity (new APIResponse<>(201,
                         "Job created successfully",

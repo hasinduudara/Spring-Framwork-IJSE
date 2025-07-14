@@ -36,9 +36,6 @@ public class JobServiceImpl implements JobService {
         Job excitingJob = jobRepository.findById(jobDTO.getId())
                 .orElseThrow(() -> new ResourceNotFound("Job not found with ID: " + jobDTO.getId()));
 
-//        Job job = jobRepository.findById(jobDTO.getId())
-//                .orElseThrow(() -> new RuntimeException("Job not found"));
-
         excitingJob.setJobTitle(jobDTO.getJobTitle());
         excitingJob.setCompany(jobDTO.getCompany());
         excitingJob.setLocation(jobDTO.getLocation());
