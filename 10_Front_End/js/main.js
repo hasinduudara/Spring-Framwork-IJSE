@@ -9,7 +9,6 @@ function fetchAllJobs() {
 
     fetch(`${API_BASE_URL}/getAllJobs`)
         .then(response => {
-            // Log more details about the response
             console.log('Response status:', response.status);
             console.log('Response headers:', [...response.headers.entries()]);
 
@@ -59,7 +58,6 @@ function displayJobs(jobs) {
         tableBody.appendChild(row);
     });
 
-    // Add event listeners to the new buttons
     addButtonEventListeners();
 }
 
@@ -86,10 +84,10 @@ function addButtonEventListeners() {
 // Function to populate edit form with job data
 function editJob(jobId) {
     console.log('Attempting to edit job with ID:', jobId);
-    fetch(`${API_BASE_URL}/getAllJobs`) // Fetch all jobs to find the specific one
+    fetch(`${API_BASE_URL}/getAllJobs`)
         .then(response => response.json())
         .then(jobs => {
-            const job = jobs.find(j => j.id === parseInt(jobId)); // Ensure id is an integer
+            const job = jobs.find(j => j.id === parseInt(jobId));
             if (job) {
                 document.getElementById('editJobId').value = job.id;
                 document.getElementById('editJobTitle').value = job.jobTitle || '';
@@ -115,7 +113,7 @@ function toggleJobStatus(jobId) {
     })
         .then(response => {
             if (response.ok) {
-                fetchAllJobs(); // Refresh the job list
+                fetchAllJobs();
             } else {
                 throw new Error('Failed to update status');
             }
@@ -178,11 +176,11 @@ document.getElementById('updateJobBtn').addEventListener('click', function() {
             if (!response.ok) {
                 throw new Error('Failed to update job');
             }
-            return response.text(); // or response.json() if returning job data
+            return response.text();
         })
         .then(() => {
-            fetchAllJobs(); // Refresh the job list
-            alert('Job updated successfully'); // Optional feedback
+            fetchAllJobs();
+            alert('Job updated successfully');
         })
         .catch(error => console.error('Error updating job:', error));
 });
@@ -196,7 +194,7 @@ document.getElementById('searchInput').addEventListener('input', function() {
         return;
     }
 
-    if (keyword.length < 2) return; // Don't search for very short terms
+    if (keyword.length < 2) return; 
 
     fetch(`${API_BASE_URL}/search/${keyword}`)
         .then(response => response.json())

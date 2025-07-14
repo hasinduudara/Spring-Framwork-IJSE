@@ -3,9 +3,12 @@ package lk.ijse.jse.back_end.controller;
 import lk.ijse.jse.back_end.dto.JobDTO;
 import lk.ijse.jse.back_end.service.JobService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -28,6 +31,14 @@ public class JobController {
         List<JobDTO> jobDTOList = jobService.getAllJob();
         return jobDTOList;
     }
+
+//    @GetMapping("getAllJobs")
+//    public Page<JobDTO> getAllJobs(
+//            @RequestParam(defaultValue = "0") int page,
+//            @RequestParam(defaultValue = "5") int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        return jobService.getAllJobs(pageable);
+//    }
 
 //    @PutMapping("update")
 //    public String updateJob(@RequestBody JobDTO jobDTO) {

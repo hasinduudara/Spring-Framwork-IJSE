@@ -15,4 +15,5 @@ public interface JobService {
     void changeJobStatus(String jobId);
 
     List<JobDTO> getAllJobsByKeyword( String keyword);
+
 }
