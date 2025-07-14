@@ -4,21 +4,20 @@ document.addEventListener('DOMContentLoaded', fetchAllJobs);
 
 // Function to fetch all jobs
 function fetchAllJobs() {
-    // Log the API URL to verify it's correct
     console.log('Fetching from:', `${API_BASE_URL}/getAllJobs`);
 
     fetch(`${API_BASE_URL}/getAllJobs`)
         .then(response => {
             console.log('Response status:', response.status);
-            console.log('Response headers:', [...response.headers.entries()]);
-
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
         })
-        .then(jobs => {
-            console.log('Jobs received:', jobs);
+        .then(apiResponse => {
+            console.log('API Response:', apiResponse);
+            // Extract data from APIResponse structure
+            const jobs = apiResponse.data || [];
             displayJobs(jobs);
         })
         .catch(error => {
@@ -86,7 +85,8 @@ function editJob(jobId) {
     console.log('Attempting to edit job with ID:', jobId);
     fetch(`${API_BASE_URL}/getAllJobs`)
         .then(response => response.json())
-        .then(jobs => {
+        .then(apiResponse => {
+            const jobs = apiResponse.data || [];
             const job = jobs.find(j => j.id === parseInt(jobId));
             if (job) {
                 document.getElementById('editJobId').value = job.id;
@@ -194,11 +194,14 @@ document.getElementById('searchInput').addEventListener('input', function() {
         return;
     }
 
-    if (keyword.length < 2) return; 
+    if (keyword.length < 2) return;
 
     fetch(`${API_BASE_URL}/search/${keyword}`)
         .then(response => response.json())
-        .then(jobs => displayJobs(jobs))
+        .then(apiResponse => {
+            const jobs = apiResponse.data || [];
+            displayJobs(jobs);
+        })
         .catch(error => console.error('Error searching jobs:', error));
 });
 

@@ -35,7 +35,7 @@ public class JobController {
         List<JobDTO> jobDTOList = jobService.getAllJob();
         return ResponseEntity.ok(new APIResponse<>(200,
                 "All jobs fetched successfully",
-                null));
+                jobDTOList));
     }
 
     @PutMapping("update")

@@ -49,11 +49,8 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDTO> getAllJob() {
-        List<Job> getAllJob = jobRepository.findAll();
-        if (getAllJob().isEmpty()) {
-            throw new ResourceNotFound("No jobs found");
-        }
-        return jobRepository.findAll().stream()
+        List<Job> allJobs = jobRepository.findAll();
+        return allJobs.stream()
                 .map(job -> modelMapper.map(job, JobDTO.class))
                 .toList();
     }
@@ -81,7 +78,13 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDTO> searchJob(String keyword) {
-        return List.of();
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return getAllJob();
+        }
+        List<Job> jobs = jobRepository.findJobByJobTitleContainingIgnoreCase(keyword.trim());
+        return jobs.stream()
+                .map(job -> modelMapper.map(job, JobDTO.class))
+                .toList();
     }
 
 }
