@@ -1,5 +1,6 @@
 package lk.ijse.jse.back_end.controller;
 
+import jakarta.validation.Valid;
 import lk.ijse.jse.back_end.dto.JobDTO;
 import lk.ijse.jse.back_end.service.JobService;
 import lk.ijse.jse.back_end.util.APIResponse;
@@ -22,7 +23,7 @@ public class JobController {
     private final JobService jobService;
 
     @PostMapping("create")
-    public ResponseEntity<APIResponse<List<JobDTO>>> createJob(@RequestBody JobDTO jobDTO) {
+    public ResponseEntity<APIResponse<List<JobDTO>>> createJob(@RequestBody @Valid JobDTO jobDTO) {
         jobService.saveJob(jobDTO);
         return new ResponseEntity (new APIResponse<>(201,
                         "Job created successfully",
