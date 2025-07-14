@@ -2,6 +2,7 @@ package lk.ijse.jse.back_end.service.impl;
 
 import lk.ijse.jse.back_end.dto.JobDTO;
 import lk.ijse.jse.back_end.entity.Job;
+import lk.ijse.jse.back_end.exceptions.ResourceNotFound;
 import lk.ijse.jse.back_end.repository.JobRepository;
 import lk.ijse.jse.back_end.service.JobService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,11 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void saveJob(JobDTO jobDTO) {
+        if (jobDTO.getId() == null) {
+            throw new ResourceNotFound("Job ID cannot be null for creation");
+        }
         jobRepository.save(modelMapper.map(jobDTO, Job.class));
     }
-
-//    @Override
-//    public void updateJob(JobDTO jobDTO) {
-//        jobRepository.save(modelMapper.map(jobDTO, Job.class));
-//    }
 
     @Override
     public void updateJob(JobDTO jobDTO) {
@@ -48,11 +47,6 @@ public class JobServiceImpl implements JobService {
                 .map(job -> modelMapper.map(job, JobDTO.class))
                 .toList();
     }
-
-//    @Override
-//    public void changeJobStatus(String jobId) {
-//        jobRepository.updateJobStatus(jobId);
-//    }
 
     @Override
     public void changeJobStatus(String jobId) {
