@@ -16,7 +16,6 @@ public class JobDTO {
     private String location;
     private String type;
     private String jobDescription;
-//    private String status;
     private boolean active;
 
     public Integer getId() {
