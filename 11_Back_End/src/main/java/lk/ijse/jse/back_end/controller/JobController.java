@@ -32,20 +32,6 @@ public class JobController {
         return jobDTOList;
     }
 
-//    @GetMapping("getAllJobs")
-//    public Page<JobDTO> getAllJobs(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "5") int size) {
-//        Pageable pageable = PageRequest.of(page, size);
-//        return jobService.getAllJobs(pageable);
-//    }
-
-//    @PutMapping("update")
-//    public String updateJob(@RequestBody JobDTO jobDTO) {
-//        jobService.updateJob(jobDTO);
-//        return "Job is updated";
-//    }
-
     @PutMapping("update")
     public ResponseEntity<String> updateJob(@RequestBody JobDTO jobDTO) {
         jobService.updateJob(jobDTO);
