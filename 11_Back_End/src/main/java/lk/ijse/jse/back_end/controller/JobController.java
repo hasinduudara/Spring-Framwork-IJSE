@@ -2,6 +2,7 @@ package lk.ijse.jse.back_end.controller;
 
 import lk.ijse.jse.back_end.dto.JobDTO;
 import lk.ijse.jse.back_end.service.JobService;
+import lk.ijse.jse.back_end.util.APIResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,31 +22,44 @@ public class JobController {
     private final JobService jobService;
 
     @PostMapping("create")
-    public String createJob(@RequestBody JobDTO jobDTO) {
+    public ResponseEntity<APIResponse<List<JobDTO>>> createJob(@RequestBody JobDTO jobDTO) {
         jobService.saveJob(jobDTO);
-        return "Job is running";
+        return new ResponseEntity (new APIResponse<>(201,
+                        "Job created successfully",
+                        null
+        ), HttpStatus.CREATED);
     }
 
     @GetMapping("getAllJobs")
-    public List<JobDTO> getAllJob() {
+    public ResponseEntity<APIResponse<List<JobDTO>>>getAllJob() {
         List<JobDTO> jobDTOList = jobService.getAllJob();
-        return jobDTOList;
+        return ResponseEntity.ok(new APIResponse<>(200,
+                "All jobs fetched successfully",
+                null));
     }
 
     @PutMapping("update")
-    public ResponseEntity<String> updateJob(@RequestBody JobDTO jobDTO) {
+    public ResponseEntity<APIResponse<List<JobDTO>>> updateJob(@RequestBody JobDTO jobDTO) {
         jobService.updateJob(jobDTO);
-        return new ResponseEntity<>("Job is updated", HttpStatus.OK);
+        return ResponseEntity.ok(new APIResponse<>(200,
+                "Job updated successfully",
+                null));
     }
 
     @PatchMapping("status/{jobID}")
-    private String changeJobStatus(@PathVariable("jobID") String jobId) {
+    private ResponseEntity<APIResponse<List<JobDTO>>> changeJobStatus(@PathVariable("jobID") String jobId) {
         jobService.changeJobStatus(jobId);
-        return "Job status changed";
+        return ResponseEntity.ok(new APIResponse<>(200,
+                "Job status changed successfully",
+                null));
+
     }
 
     @GetMapping("search/{keyword}")
-    public List<JobDTO> searchJob(@PathVariable("keyword") String keyword) {
-        return jobService.getAllJobsByKeyword(keyword);
+    public ResponseEntity<APIResponse<List<JobDTO>>> searchJob(@PathVariable("keyword") String keyword) {
+        return ResponseEntity.ok(new APIResponse<>(200,
+                "Job List fetched successfully",
+                jobService.searchJob(keyword)
+        ));
     }
 }

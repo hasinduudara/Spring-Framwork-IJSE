@@ -16,4 +16,6 @@ public interface JobService {
 
     List<JobDTO> getAllJobsByKeyword( String keyword);
 
+    List<JobDTO> searchJob(String keyword);
+
 }

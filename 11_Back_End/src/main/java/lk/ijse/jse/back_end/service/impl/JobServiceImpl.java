@@ -69,5 +69,10 @@ public class JobServiceImpl implements JobService {
         return modelMapper.map(allJobs, new TypeToken<List<JobDTO>>(){}.getType());
     }
 
+    @Override
+    public List<JobDTO> searchJob(String keyword) {
+        return List.of();
+    }
+
 
 }
