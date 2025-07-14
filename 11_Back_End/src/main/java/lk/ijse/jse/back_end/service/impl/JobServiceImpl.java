@@ -22,27 +22,37 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void saveJob(JobDTO jobDTO) {
-        if (jobDTO.getId() == null) {
-            throw new ResourceNotFound("Job ID cannot be null for creation");
+        if (jobDTO == null) {
+            throw new IllegalArgumentException("Job ID cannot be null for creation");
         }
         jobRepository.save(modelMapper.map(jobDTO, Job.class));
     }
 
     @Override
     public void updateJob(JobDTO jobDTO) {
-        Job job = jobRepository.findById(jobDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Job not found"));
-        // Map DTO to entity and save
-        job.setJobTitle(jobDTO.getJobTitle());
-        job.setCompany(jobDTO.getCompany());
-        job.setLocation(jobDTO.getLocation());
-        job.setType(jobDTO.getType());
-        job.setActive(String.valueOf(jobDTO.isActive()));
-        jobRepository.save(job);
+        if (jobDTO == null || jobDTO.getId() == null) {
+            throw new IllegalArgumentException("Job ID cannot be null for update");
+        }
+        Job excitingJob = jobRepository.findById(jobDTO.getId())
+                .orElseThrow(() -> new ResourceNotFound("Job not found with ID: " + jobDTO.getId()));
+
+//        Job job = jobRepository.findById(jobDTO.getId())
+//                .orElseThrow(() -> new RuntimeException("Job not found"));
+
+        excitingJob.setJobTitle(jobDTO.getJobTitle());
+        excitingJob.setCompany(jobDTO.getCompany());
+        excitingJob.setLocation(jobDTO.getLocation());
+        excitingJob.setType(jobDTO.getType());
+        excitingJob.setActive(String.valueOf(jobDTO.isActive()));
+        jobRepository.save(excitingJob);
     }
 
     @Override
     public List<JobDTO> getAllJob() {
+        List<Job> getAllJob = jobRepository.findAll();
+        if (getAllJob().isEmpty()) {
+            throw new ResourceNotFound("No jobs found");
+        }
         return jobRepository.findAll().stream()
                 .map(job -> modelMapper.map(job, JobDTO.class))
                 .toList();
@@ -59,7 +69,13 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDTO> getAllJobsByKeyword(String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
+            throw new IllegalArgumentException("Keyword cannot be null or empty");
+        }
         List<Job> allJobs =  jobRepository.findJobByJobTitleContainingIgnoreCase(keyword);
+        if (allJobs.isEmpty()) {
+            throw new ResourceNotFound("No jobs found with keyword: " + keyword);
+        }
         return modelMapper.map(allJobs, new TypeToken<List<JobDTO>>(){}.getType());
     }
 
@@ -67,6 +83,5 @@ public class JobServiceImpl implements JobService {
     public List<JobDTO> searchJob(String keyword) {
         return List.of();
     }
-
 
 }
